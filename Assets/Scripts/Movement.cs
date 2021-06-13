@@ -5,26 +5,32 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField]
-    float speed;
-    float xRange = 16.0f;
-    float yRange = 5.0f;
-    [SerializeField]
-    float positionpitchFactor = 5.0f;
-    [SerializeField]
-    float controlpitchFactor = 5f;
-    float pitchControlValue = 5f;
-    [SerializeField]
-    float positionyawFactor = 5f;
-    [SerializeField]
-    float controlrollFactor = 5f;
+    [Header("General")]
+    [SerializeField] float speed;
+    [SerializeField] float xRange = 16.0f;
+    [SerializeField] float yRange = 5.0f;
+
+    [Header("Position Controlled")]
+    [SerializeField] float positionpitchFactor = 5.0f;
+    [SerializeField] float controlpitchFactor = 5f;
+    [SerializeField] float positionyawFactor = 5f;
+    [SerializeField] float controlrollFactor = 5f;
 
     float xOffset, yOffset;
+    bool isPlayerActive = true;
     // Update is called once per frame
     void Update()
     {
-        playerPosition();
-        playerRotation();
+        if (isPlayerActive)
+        {
+            playerPosition();
+            playerRotation();
+        }
+    }
+    void OnPlayerDeath()
+    {
+        isPlayerActive = false;
+        Debug.Log("Received message");
     }
      private void playerRotation()
     {
